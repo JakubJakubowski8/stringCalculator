@@ -63,5 +63,41 @@ public class StringCalculatorTest {
 
     assertThat(result).isEqualTo(expectedResult);
   }
+
+  @Test
+  public void shouldReturn3For1NewLine2() {
+
+    String input = "1\n2";
+    int expectedResult = 3;
+
+    int result = stringCalculator.add(input);
+
+    assertThat(result).isEqualTo(expectedResult);
+  }
+
+  @Test
+  public void shouldReturn6For1NewLine2Coma3() {
+
+    String input = "1\n2,3";
+    int expectedResult = 6;
+
+    int result = stringCalculator.add(input);
+
+    assertThat(result).isEqualTo(expectedResult);
+  }
+
+  @Test
+  public void shouldReturn6ForStringBlock() {
+
+    String input = """
+                    1
+                    2,3 
+                    """;
+    int expectedResult = 6;
+
+    int result = stringCalculator.add(input);
+
+    assertThat(result).isEqualTo(expectedResult);
+  }
 }
 

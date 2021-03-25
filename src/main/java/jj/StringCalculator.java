@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
 
-  private final String REGEX = ",";
+  private final String REGEX = "[,\n]";
 
 
   public int add(String input) {
