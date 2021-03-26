@@ -125,5 +125,21 @@ public class StringCalculatorTest {
 
     assertThat(result).isEqualTo(expectedResult);
   }
+
+  @Test
+  public void shouldReturn20ForMultipleCustomDelimiter() {
+
+    String input = """
+                   //[----][x][asd]\n1----2----3,2
+                   4
+                   2x2asd2----2
+                   """;
+
+    int expectedResult = 20;
+
+    int result = stringCalculator.add(input);
+
+    assertThat(result).isEqualTo(expectedResult);
+  }
 }
 

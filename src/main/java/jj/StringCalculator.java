@@ -1,6 +1,7 @@
 package jj;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
@@ -39,12 +40,16 @@ public class StringCalculator {
   }
 
   private String createNewDelimiter(String str) {
-    StringBuffer sb = new StringBuffer(str);
 
-    sb.delete(str.length() - 1, str.length());
-    sb.delete(0, 3);
+    StringBuilder sb = new StringBuilder();
 
-    sb.append("|" + REGEX);
+    Pattern p = Pattern.compile("\\[(.*?)\\]");
+    Matcher m = p.matcher(str);
+
+    while(m.find()) {
+      sb.append(m.group(1)).append("|");
+    }
+    sb.append(REGEX);
 
     return sb.toString();
   }
