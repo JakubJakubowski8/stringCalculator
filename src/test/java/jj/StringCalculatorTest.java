@@ -141,5 +141,16 @@ public class StringCalculatorTest {
 
     assertThat(result).isEqualTo(expectedResult);
   }
+
+  @Test
+  public void shouldNotAddNumbersHigherThan1000() {
+
+    String input = "1\n2,1001";
+    int expectedResult = 3;
+
+    int result = stringCalculator.add(input);
+
+    assertThat(result).isEqualTo(expectedResult);
+  }
 }
 

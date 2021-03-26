@@ -31,7 +31,9 @@ public class StringCalculator {
 
     return Pattern.compile(delimiter)
         .splitAsStream(input)
-        .mapToInt(Integer::parseInt).sum();
+        .mapToInt(Integer::parseInt)
+        .filter(n -> n <= 1000)
+        .sum();
   }
 
   private boolean isCustomDelimiter(String input) {
