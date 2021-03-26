@@ -1,6 +1,7 @@
 package jj;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -151,6 +152,22 @@ public class StringCalculatorTest {
     int result = stringCalculator.add(input);
 
     assertThat(result).isEqualTo(expectedResult);
+  }
+
+  @Test
+  public void shouldThrowExceptionWhenNegative() {
+
+    String input = "//[----]\n-1\n-2,-3----5";
+
+
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      stringCalculator.add(input);
+    });
+
+    String expectedMessage = "Negatives are not allowed [-1, -2, -3]";
+    String actualMessage = exception.getMessage();
+
+    assertThat(actualMessage).isEqualTo(expectedMessage);
   }
 }
 

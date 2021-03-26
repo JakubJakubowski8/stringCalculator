@@ -1,8 +1,10 @@
 package jj;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class StringCalculator {
 
@@ -17,12 +19,13 @@ public class StringCalculator {
     }
 
     if (isCustomDelimiter(input)) {
-      String[] stringArray = Arrays.stream(input.split("[\n]", 2))
-          .toArray(String[]::new);
+      String[] splitted = splitString(input);
 
-      delimiter = createNewDelimiter(stringArray[0]);
-      input = stringArray[1];
+      delimiter = createNewDelimiter(splitted[0]);
+      input = splitted[1];
     }
+
+    findNegatives(input, delimiter);
 
     return add(input, delimiter);
   }
@@ -32,13 +35,34 @@ public class StringCalculator {
     return Pattern.compile(delimiter)
         .splitAsStream(input)
         .mapToInt(Integer::parseInt)
-        .filter(n -> n <= 1000)
+        .filter(n -> n >= 0 & n <= 1000)
         .sum();
+  }
+
+  private void findNegatives(String input, String delimiter) {
+
+    List<Integer> negatives = Pattern.compile(delimiter)
+        .splitAsStream(input)
+        .mapToInt(Integer::parseInt)
+        .filter(n -> n < 0)
+        .boxed()
+        .collect(Collectors.toList());
+
+    if (!negatives.isEmpty()) {
+      throw new IllegalArgumentException(
+          "Negatives are not allowed " + String.join(",", negatives.toString()));
+    }
+
   }
 
   private boolean isCustomDelimiter(String input) {
 
     return input.startsWith("//");
+  }
+
+  private String[] splitString(String input) {
+    return Arrays.stream(input.split("[\n]", 2))
+        .toArray(String[]::new);
   }
 
   private String createNewDelimiter(String str) {
