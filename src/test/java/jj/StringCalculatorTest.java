@@ -99,5 +99,31 @@ public class StringCalculatorTest {
 
     assertThat(result).isEqualTo(expectedResult);
   }
+
+  @Test
+  public void shouldReturn10ForCustomDelimiter() {
+
+    String input = "//[xx]\n1xx2xx3,2\n2";
+    int expectedResult = 10;
+
+    int result = stringCalculator.add(input);
+
+    assertThat(result).isEqualTo(expectedResult);
+  }
+
+  @Test
+  public void shouldReturn12ForCustomDelimiter() {
+
+    String input = """
+                   //[----]\n1----2----3,2
+                   4
+                   """;
+
+    int expectedResult = 12;
+
+    int result = stringCalculator.add(input);
+
+    assertThat(result).isEqualTo(expectedResult);
+  }
 }
 
